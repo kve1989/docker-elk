@@ -14,6 +14,7 @@ services:
       - type: volume
         source: elasticsearch
         target: /usr/share/elasticsearch/data
+    container_name: elasticsearch
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -40,6 +41,7 @@ services:
         source: ./logstash/pipeline
         target: /usr/share/logstash/pipeline
         read_only: true
+    container_name: logstash
     ports:
       - "5044:5044"
       - "5000:5000/tcp"
@@ -62,6 +64,7 @@ services:
         source: ./kibana/config/kibana.yml
         target: /usr/share/kibana/config/kibana.yml
         read_only: true
+    container_name: kibana
     ports:
       - "5601:5601"
     networks:
@@ -74,6 +77,7 @@ services:
       context: filebeat/
       args:
         BEATS_VERSION: $BEATS_VERSION
+    container_name: filebeat
     volumes:
       - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./filebeat/modules.d:/usr/share/filebeat/modules.d
