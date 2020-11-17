@@ -1,4 +1,4 @@
-version: '3.2'
+version: "3.2"
 
 services:
   elasticsearch:
@@ -68,6 +68,19 @@ services:
       - elk
     depends_on:
       - elasticsearch
+
+  firebeats:
+    build:
+      context: firebeats/
+      arg:
+        BEATS_VERSION: $BEATS_VERSION
+    volumes:
+      - ./firebeats/config/firebeats.yml:/usr/share/firebeats/firebeats.yml:ro
+      - ./firebeats/modules.d:/usr/share/firebeats/modules.d
+    networks:
+      - elk
+    depends_on:
+      - logstash
 
 networks:
   elk:
