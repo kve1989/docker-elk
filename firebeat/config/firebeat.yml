@@ -7,6 +7,9 @@ filebeat.autodiscover:
     - type: docker
       hints.enabled: true
 
+setup.kibana:
+  host: kibana:5601
+
 output.elasticsearch:
   hosts: ["http://elasticsearch:9200"]
   username: elastic
